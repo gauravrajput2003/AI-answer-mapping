@@ -1,0 +1,14 @@
+name: Keep backend awake
+
+on:
+  schedule:
+    - cron: '*/14 * * * *'   # every 14 minutes
+  workflow_dispatch:          # lets you trigger it manually from the Actions tab too
+
+jobs:
+  ping:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Hit health endpoint
+        run: |
+          curl -sf https://your-app-name.onrender.com/api/health || echo "Ping failed (non-fatal)"
